@@ -1,0 +1,49 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+body {
+  @apply bg-gray-50;
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.95); opacity: 0.7; }
+  50% { transform: scale(1.05); opacity: 0.4; }
+  100% { transform: scale(0.95); opacity: 0.7; }
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+@keyframes bounce-dots {
+  0%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-6px); }
+}
+
+.mic-pulse {
+  animation: pulse-ring 1.5s ease-in-out infinite;
+}
+
+.typing-dot:nth-child(1) { animation: bounce-dots 1.2s ease-in-out infinite 0s; }
+.typing-dot:nth-child(2) { animation: bounce-dots 1.2s ease-in-out infinite 0.15s; }
+.typing-dot:nth-child(3) { animation: bounce-dots 1.2s ease-in-out infinite 0.3s; }
+
+@keyframes slide-in-right {
+  from { opacity: 0; transform: translateX(20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slide-in-left {
+  from { opacity: 0; transform: translateX(-20px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+.slide-in-right { animation: slide-in-right 0.3s ease-out; }
+.slide-in-left { animation: slide-in-left 0.3s ease-out; }
