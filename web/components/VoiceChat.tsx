@@ -20,33 +20,33 @@ export interface Message {
 
 type AppState = "idle" | "listening" | "thinking" | "done";
 
-const DEMO_RESPONSES: Record<string, { content: string; richType?: Message["richType"] }> = {
-  "show my open pull requests": {
-    richType: "prs",
-    content: "",
+const DEMO_RESPONSES: Array<{ keywords: string[]; result: { content: string; richType?: Message["richType"] } }> = [
+  {
+    keywords: ["pull request", "pr", "open pr", "show pr", "list pr", "my pr"],
+    result: { richType: "prs", content: "" },
   },
-  "what failed overnight": {
-    richType: "alerts",
-    content: "",
+  {
+    keywords: ["failed", "failure", "overnight", "error", "broke", "alert", "incident"],
+    result: { richType: "alerts", content: "" },
   },
-  "deploy to staging": {
-    richType: "deploy",
-    content: "",
+  {
+    keywords: ["deploy", "deployment", "push", "release", "staging", "production"],
+    result: { richType: "deploy", content: "" },
   },
-  "how many signups today": {
-    richType: "metric",
-    content: "📈 **47 new signups today** — that's +12% compared to yesterday. Your best day this week!",
+  {
+    keywords: ["signup", "signups", "sign up", "user", "users", "new user", "registration", "how many"],
+    result: { richType: "metric", content: "📈 **47 new signups today** — that's +12% vs yesterday. Best day this week!" },
   },
-  "create a ticket for the login bug": {
-    richType: "ticket",
-    content: "",
+  {
+    keywords: ["ticket", "issue", "bug", "jira", "create ticket", "log", "report"],
+    result: { richType: "ticket", content: "" },
   },
-};
+];
 
 function matchDemoCommand(input: string): { content: string; richType?: Message["richType"] } | null {
-  const normalized = input.toLowerCase().replace(/[?.!]/g, "").trim();
-  for (const [key, val] of Object.entries(DEMO_RESPONSES)) {
-    if (normalized.includes(key)) return val;
+  const normalized = input.toLowerCase().replace(/[?.!,]/g, "").trim();
+  for (const { keywords, result } of DEMO_RESPONSES) {
+    if (keywords.some((kw) => normalized.includes(kw))) return result;
   }
   return null;
 }
@@ -60,7 +60,7 @@ export default function VoiceChat() {
     {
       id: "welcome",
       role: "assistant",
-      content: "👋 Hi! I'm your Telligent AI Operator. You can speak or type a command — like \"show my open pull requests\" or \"what failed overnight?\"",
+      content: "👋 Hi! I'm your Telligent AI Operator. Speak or type anything — try \"show my PRs\", \"what failed overnight?\", or \"deploy to staging\". Just talk naturally.",
       timestamp: new Date(),
       status: "done",
     },
@@ -106,7 +106,7 @@ export default function VoiceChat() {
         setAppState("done");
         addMessage({
           role: "assistant",
-          content: `I heard you say: "${text}". I can handle commands like "show my open pull requests", "what failed overnight?", "deploy to staging", "how many signups today?", or "create a ticket for the login bug". Try one of those!`,
+          content: `Got it — try something like "show my PRs", "what failed overnight?", "deploy to staging", "how many signups today?", or "create a bug ticket". I understand natural language, so just say it however feels natural.`,
           status: "done",
         });
         setTimeout(() => setAppState("idle"), 1500);
@@ -272,10 +272,10 @@ export default function VoiceChat() {
 
         {/* Hint chips */}
         <div className="flex gap-2 mt-3 overflow-x-auto pb-1 scrollbar-hide">
-          {["Show PRs", "What failed?", "Deploy to staging", "Signups today"].map((hint) => (
+          {["Show my PRs", "What failed overnight?", "Deploy to staging", "Signups today", "Create a bug ticket"].map((hint) => (
             <button
               key={hint}
-              onClick={() => handleCommand(hint.toLowerCase())}
+              onClick={() => handleCommand(hint)}
               disabled={appState === "thinking" || appState === "listening"}
               className="flex-shrink-0 px-3 py-1.5 bg-blue-50 text-blue-600 text-xs font-medium rounded-full hover:bg-blue-100 transition-colors disabled:opacity-40"
             >
