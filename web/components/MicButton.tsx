@@ -1,6 +1,6 @@
 "use client";
 
-type AppState = "idle" | "listening" | "thinking" | "done";
+type AppState = "idle" | "listening" | "thinking" | "speaking" | "done";
 
 interface Props {
   state: AppState;

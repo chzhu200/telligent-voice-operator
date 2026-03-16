@@ -5,16 +5,19 @@ import PRList from "./rich/PRList";
 import AlertList from "./rich/AlertList";
 import MetricCard from "./rich/MetricCard";
 import TicketCard from "./rich/TicketCard";
+import DeployCard from "./rich/DeployCard";
 
 function formatTime(date: Date) {
   return date.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
 }
 
 function renderContent(message: Message) {
-  if (message.richType === "prs") return <PRList />;
-  if (message.richType === "alerts") return <AlertList />;
-  if (message.richType === "metric") return <MetricCard />;
-  if (message.richType === "ticket") return <TicketCard />;
+  const richType = message.richType;
+  if (richType === "prs") return <PRList />;
+  if (richType === "alerts") return <AlertList />;
+  if (richType === "metric") return <MetricCard />;
+  if (richType === "ticket") return <TicketCard />;
+  if (richType === "deploy") return <DeployCard />;
   return <MarkdownText text={message.content as string} />;
 }
 

@@ -1,8 +1,9 @@
 "use client";
 
-type AppState = "idle" | "listening" | "thinking" | "done";
+type AppState = "idle" | "listening" | "thinking" | "speaking" | "done";
 
 const STATUS_MESSAGES: Record<AppState, string | null> = {
+  speaking: "🔊 Speaking…",
   idle: null,
   listening: "🎙️ Listening…",
   thinking: "🤔 Thinking…",
