@@ -1,0 +1,16 @@
+{
+  "name": "Telligent — Voice AI Operator",
+  "short_name": "Telligent",
+  "description": "Control any system by speaking. No technical knowledge required.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "theme_color": "#2563eb",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "any",
+      "type": "image/x-icon"
+    }
+  ]
+}
