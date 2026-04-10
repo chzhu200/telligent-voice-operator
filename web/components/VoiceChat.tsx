@@ -52,7 +52,7 @@ export default function VoiceChat() {
     {
       id: "welcome",
       role: "assistant",
-      content: "👋 Hi! I'm Telligent — your Voice AI Operator. Just speak or type a command. Try \"show my open pull requests\", \"what failed overnight?\", or \"deploy to staging\".",
+      content: "👋 Hi! I'm Telligent — your Voice AI Operator. Hold the mic and speak, or type a command below. Try \"show my open pull requests\", \"what failed overnight?\", or \"deploy to staging\".",
       timestamp: new Date(),
       status: "done",
     },
@@ -243,7 +243,7 @@ export default function VoiceChat() {
       <StatusBar state={appState} />
 
       {/* Input */}
-      <div className="px-4 pb-6 pt-2 bg-white border-t border-gray-100">
+      <div className="px-4 pb-8 pt-2 bg-white border-t border-gray-100">
         <div className="flex items-center gap-3">
           <form onSubmit={handleSubmit} className="flex-1 relative">
             <input

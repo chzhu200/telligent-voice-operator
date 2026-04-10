@@ -47,3 +47,13 @@ body {
 
 .slide-in-right { animation: slide-in-right 0.3s ease-out; }
 .slide-in-left { animation: slide-in-left 0.3s ease-out; }
+
+@keyframes waveform {
+  0%, 100% { transform: scaleY(0.4); }
+  50% { transform: scaleY(1); }
+}
+
+.waveform-bar {
+  animation: waveform 0.7s ease-in-out infinite;
+  transform-origin: bottom;
+}
