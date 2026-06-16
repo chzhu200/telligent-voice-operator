@@ -1,6 +1,10 @@
 "use client";
 
-export default function Header() {
+interface Props {
+  onClear?: () => void;
+}
+
+export default function Header({ onClear }: Props) {
   return (
     <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between sticky top-0 z-10">
       <div className="flex items-center gap-2">
@@ -13,7 +17,7 @@ export default function Header() {
         <span className="font-semibold text-gray-900 text-lg tracking-tight">Telligent</span>
       </div>
 
-      {/* Connected integrations */}
+      {/* Right: integrations + clear */}
       <div className="flex items-center gap-2">
         <span className="text-xs text-gray-400 hidden sm:block">Connected:</span>
         {/* GitHub */}
@@ -32,6 +36,17 @@ export default function Header() {
           <span className="text-xs font-medium text-blue-700">Jira</span>
           <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
         </div>
+        {onClear && (
+          <button
+            onClick={onClear}
+            title="Clear conversation"
+            className="ml-1 w-7 h-7 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            </svg>
+          </button>
+        )}
       </div>
     </header>
   );

@@ -196,6 +196,17 @@ export default function VoiceChat() {
     if (inputText.trim()) handleCommand(inputText);
   };
 
+  const handleClear = useCallback(() => {
+    setMessages([{
+      id: "welcome",
+      role: "assistant",
+      content: "👋 Hi! I'm Telligent — your Voice AI Operator. Hold the mic and speak, or type a command below. Try \"show my open pull requests\", \"what failed overnight?\", or \"deploy to staging\".",
+      timestamp: new Date(),
+      status: "done",
+    }]);
+    historyRef.current = [];
+  }, []);
+
   const HINTS = [
     "Show my open pull requests",
     "What failed overnight?",
@@ -206,7 +217,7 @@ export default function VoiceChat() {
 
   return (
     <div className="flex flex-col h-screen bg-gray-50 max-w-2xl mx-auto">
-      <Header />
+      <Header onClear={handleClear} />
 
       {/* Backend status banner */}
       {backendOnline === false && (
