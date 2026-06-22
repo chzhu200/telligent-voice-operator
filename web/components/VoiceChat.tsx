@@ -191,6 +191,27 @@ export default function VoiceChat() {
     setAppState("idle");
   }, []);
 
+  // Spacebar shortcut: hold space to speak (when not typing in input)
+  useEffect(() => {
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.code !== "Space" || e.repeat) return;
+      if (document.activeElement === inputRef.current) return;
+      e.preventDefault();
+      if (appState === "idle") startListening();
+    };
+    const onKeyUp = (e: KeyboardEvent) => {
+      if (e.code !== "Space") return;
+      if (document.activeElement === inputRef.current) return;
+      if (appState === "listening") stopListening();
+    };
+    window.addEventListener("keydown", onKeyDown);
+    window.addEventListener("keyup", onKeyUp);
+    return () => {
+      window.removeEventListener("keydown", onKeyDown);
+      window.removeEventListener("keyup", onKeyUp);
+    };
+  }, [appState, startListening, stopListening]);
+
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (inputText.trim()) handleCommand(inputText);

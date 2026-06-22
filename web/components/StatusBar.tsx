@@ -39,7 +39,11 @@ export default function StatusBar({ state }: { state: AppState }) {
   }
 
   const msg = STATUS_MESSAGES[state];
-  if (!msg) return <div className="h-8" />;
+  if (!msg) return (
+    <div className="h-8 flex items-center justify-center">
+      <span className="text-xs text-gray-300 select-none hidden sm:block">Hold mic or press <kbd className="font-mono bg-gray-100 text-gray-400 px-1 rounded text-[10px]">space</kbd> to speak</span>
+    </div>
+  );
 
   return (
     <div className="h-8 flex items-center justify-center">

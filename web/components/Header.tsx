@@ -1,10 +1,23 @@
 "use client";
+import { useState } from "react";
 
 interface Props {
   onClear?: () => void;
 }
 
 export default function Header({ onClear }: Props) {
+  const [copied, setCopied] = useState(false);
+
+  const handleShare = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    } catch {
+      // fallback silent fail
+    }
+  };
+
   return (
     <header className="bg-white border-b border-gray-100 px-4 py-3 flex items-center justify-between sticky top-0 z-10">
       <div className="flex items-center gap-2">
@@ -36,11 +49,28 @@ export default function Header({ onClear }: Props) {
           <span className="text-xs font-medium text-blue-700">Jira</span>
           <div className="w-1.5 h-1.5 rounded-full bg-blue-500" />
         </div>
+        {/* Share / copy link */}
+        <button
+          onClick={handleShare}
+          title="Copy demo link"
+          className="ml-1 flex items-center gap-1 px-2.5 py-1 rounded-full text-xs text-gray-500 hover:text-gray-700 hover:bg-gray-100 transition-colors"
+        >
+          {copied ? (
+            <span className="text-green-600 font-medium">✓ Copied!</span>
+          ) : (
+            <>
+              <svg className="w-3.5 h-3.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
+              </svg>
+              Share
+            </>
+          )}
+        </button>
         {onClear && (
           <button
             onClick={onClear}
             title="Clear conversation"
-            className="ml-1 w-7 h-7 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
+            className="w-7 h-7 flex items-center justify-center rounded-full text-gray-400 hover:text-gray-600 hover:bg-gray-100 transition-colors"
           >
             <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
