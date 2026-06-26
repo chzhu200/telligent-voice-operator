@@ -234,6 +234,7 @@ export default function VoiceChat() {
     "Deploy to staging",
     "How many signups today?",
     "Create a ticket for the login bug",
+    "Show team velocity",
   ];
 
   return (

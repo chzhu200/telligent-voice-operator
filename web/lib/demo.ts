@@ -41,6 +41,20 @@ const DEMO_PATTERNS: Array<{ patterns: RegExp[]; result: DemoResult }> = [
       richType: "ticket",
     },
   },
+  {
+    patterns: [/velocity/i, /sprint/i, /team.*progress/i, /how.*team/i, /throughput/i],
+    result: {
+      text: "Here's your team velocity this sprint:",
+      richType: "metric",
+    },
+  },
+  {
+    patterns: [/hello/i, /hi\b/i, /hey\b/i, /what can you do/i, /help/i],
+    result: {
+      text: "I can control your entire stack by voice! Try: \"show my open PRs\", \"what failed overnight?\", \"deploy to staging\", \"how many signups today?\", or \"create a ticket for the login bug\".",
+      richType: null,
+    },
+  },
 ];
 
 const FALLBACK_RESPONSES = [
